@@ -25,7 +25,7 @@ class Album(models.Model):
 
 class Photo(models.Model):
     image = models.ImageField(upload_to="photos", verbose_name='Картинка')
-    content = models.CharField(max_length=255)
+    content = models.CharField(max_length=2000)
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="photos", verbose_name="Автор")
     album = models.ForeignKey(Album, on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
