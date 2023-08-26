@@ -23,26 +23,6 @@
                 </a>
             </div>
         {% endfor %}
-        {#        <div class="profile-stats">#}
-        {#            <div class="profile-stat-item">#}
-        {#                <span class="profile-stat-value">{{ user_obj.posts.count }}</span> posts#}
-        {#            </div>#}
-        {#            <div class="profile-stat-item">#}
-        {#                <span class="profile-stat-value">{{ user_obj.followers.count }}</span> followers#}
-        {#            </div>#}
-        {#            <div class="profile-stat-item">#}
-        {#                <span class="profile-stat-value">{{ user_obj.following.count }}</span> following#}
-        {#            </div>#}
-        {#        </div>#}
-        {#        {% if request.user.is_authenticated and request.user != user_obj %}#}
-        {#            <a href="{% url "webapp:follower" user_obj.pk %}">#}
-        {#                {% if request.user in user_obj.followers.all %}#}
-        {#                    Отписаться#}
-        {#                {% else %}#}
-        {#                    Подписаться#}
-        {#                {% endif %}#}
-        {#            </a>#}
-        {#        {% endif %}#}
     </div>
     <div class="profile-posts mt-5">
         <div class="row">
