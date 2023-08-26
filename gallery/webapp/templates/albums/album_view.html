@@ -16,8 +16,6 @@
     <div class="row">
         {% for photo in photos.album_id %}
             {% include "partial/photo_view_partial.html" %}
-            {% empty %}
-            <h2>Нет картинок</h2>
         {% endfor %}
     </div>
 
