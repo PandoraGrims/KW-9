@@ -20,5 +20,9 @@
         <p>{{ album.description }}</p>
     </div>
     <div class="post-timestamp px-4 py-2 text-muted">{{ album.created_at }}</div>
-    <img class="post-image img-fluid" src="{{ album.author.photo.image.url }}" alt="Album Image">
 </div>
+    <div class="album-photos">
+        {% for photo in album.photos.all %}
+            <img src="{{ photo.image.url }}" alt="{{ photo.content }}">
+        {% endfor %}
+    </div>
