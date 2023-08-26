@@ -1,28 +1,19 @@
 <div class="post bg-white border rounded">
     <div class="post-header py-3 px-4 d-flex align-items-center">
-        <img class="post-avatar rounded-circle me-3" src="{{ photo.author.avatar.url }}" alt="User Avatar">
-        <span class="post-username font-weight-bold"><a href="{% url 'accounts:profile' photo.author.pk %}">
+        {% if request.user.is_authenticated %}
+            <img class="post-avatar rounded-circle me-3" src="{{ photo.author.avatar.url }}" alt="User Avatar">
+            <span class="post-username font-weight-bold"><a href="{% url 'accounts:profile' photo.author.pk %}">
                         {{ photo.author.username }}</a>
                     </span>
+        {% else %}
+            <img class="post-avatar rounded-circle me-3" src="{{ photo.author.avatar.url }}" alt="User Avatar">
+            <span class="post-username font-weight-bold"><p href="{% url 'accounts:profile' photo.author.pk %}">
+                        {{ photo.author.username }}</p>
+                    </span>
+        {% endif %}
     </div>
     <img class="post-image img-fluid" src="{{ photo.image.url }}" alt="Post Image">
-    <div class="post-actions py-2 px-4">
-{#        {% if request.user.is_authenticated %}#}
-{#            <a href="{% url 'webapp:post_like' post.pk %}?next={{ request.path }}">#}
-{#                {% if request.user not in post.like_users.all %}#}
-{#                    <span class="post-like-btn me-2"><i class="bi bi-heart"></i></span>#}
-{#                {% else %}#}
-{#                    <span class="post-like-btn me-2"><i class="bi bi-heart-fill"></i></span>#}
-{#                {% endif %}#}
-{#            </a>#}
-{#        {% endif %}#}
 
-
-        {#                    <span class="post-share-btn me-2">↪</span>#}
-{#        <span class="post-likes font-weight-bold">{{ post.like_users.count }}</span>#}
-{##}
-{#        <span class="post-comment-btn me-2"><i class="bi bi-chat-dots-fill"></i></span>#}
-    </div>
     <div class="post-description px-4 py-3">
         <p>{{ photo.content }}</p>
     </div>

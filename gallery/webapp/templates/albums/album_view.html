@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block link %}
+    {% if request.user == post.author %}
+        <li class="nav-item">
+            <a href="{% url "webapp:album_update" album.pk %}" class="nav-link">Редактирование</a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url "webapp:album_delete" album.pk %}" class="nav-link">Удаление</a>
+        </li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% include "partial/album_view_partial.html" %}
+
+{% endblock %}

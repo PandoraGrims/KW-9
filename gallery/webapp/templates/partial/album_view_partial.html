@@ -1,0 +1,23 @@
+<div class="post bg-white border rounded">
+    <div class="post-header py-3 px-4 d-flex align-items-center">
+        {% if request.user.is_authenticated %}
+            <img class="post-avatar rounded-circle me-3" src="{{ album.author.avatar.url }}" alt="User Avatar">
+            <span class="post-username font-weight-bold"><a href="{% url 'accounts:profile' album.author.pk %}">
+                        {{ album.author.username }}</a>
+                    </span>
+        {% else %}
+            <img class="post-avatar rounded-circle me-3" src="{{ album.author.avatar.url }}" alt="User Avatar">
+            <span class="post-username font-weight-bold"><p href="{% url 'accounts:profile' album.author.pk %}">
+                        {{ album.author.username }}</p>
+                    </span>
+        {% endif %}
+    </div>
+    <div class="post-title px-4 py-3">
+        <p>{{ album.title }}</p>
+    </div>
+
+    <div class="post-description px-4 py-3">
+        <p>{{ album.description }}</p>
+    </div>
+    <div class="post-timestamp px-4 py-2 text-muted">{{ album.created_at }}</div>
+</div>

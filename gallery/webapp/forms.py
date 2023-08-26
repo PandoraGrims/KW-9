@@ -16,4 +16,4 @@ class PhotoForm(forms.ModelForm):
 class AlbumForm(forms.ModelForm):
     class Meta:
         model = Album
-        fields = ["title", "author"]
+        fields = ["title", "description"]

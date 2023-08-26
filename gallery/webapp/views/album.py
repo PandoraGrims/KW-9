@@ -1,37 +1,41 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from webapp.models import Album
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
+from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
+
 from webapp.forms import AlbumForm
+from webapp.models import Album
 
-def album_detail(request, album_id):
-    album = get_object_or_404(Album, pk=album_id)
-    # ...render the template with the album details
 
-def create_album(request):
-    if request.method == 'POST':
-        form = AlbumForm(request.POST)
-        if form.is_valid():
-            album = form.save(commit=False)
-            album.author = request.user
-            album.save()
-            return redirect('album_detail', album_id=album.id)
-    else:
-        form = AlbumForm()
-    # ...render the template with the form
+class AlbumCreateView(LoginRequiredMixin, CreateView):
+    form_class = AlbumForm
+    template_name = "albums/album_create.html"
 
-def edit_album(request, album_id):
-    album = get_object_or_404(Album, pk=album_id)
-    if request.method == 'POST':
-        form = AlbumForm(request.POST, instance=album)
-        if form.is_valid():
-            form.save()
-            return redirect('album_detail', album_id=album.id)
-    else:
-        form = AlbumForm(instance=album)
-    # ...render the template with the form
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
-def delete_album(request, album_id):
-    album = get_object_or_404(Album, pk=album_id)
-    if request.method == 'POST':
-        album.delete()
-        return redirect('photo_list')  # Redirect to a suitable page
-    # ...render the template for confirmation
+
+class AlbumDetailView(DetailView):
+    queryset = Album.objects.all()
+    template_name = "albums/album_view.html"
+
+
+class AlbumDeleteView(PermissionRequiredMixin, DeleteView):
+    model = Album
+    template_name = "albums/album_delete.html"
+
+    def has_permission(self):
+        return self.request.user == self.get_object().author
+
+    def get_success_url(self):
+        return reverse("accounts:profile", kwargs={"pk": self.request.user.pk})
+
+
+class AlbumUpdateView(PermissionRequiredMixin, UpdateView):
+    model = Album
+    form_class = AlbumForm
+    template_name = "albums/album_update.html"
+
+    def has_permission(self):
+        return self.request.user == self.get_object().author
