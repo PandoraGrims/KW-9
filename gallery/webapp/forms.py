@@ -11,13 +11,13 @@ class PhotoForm(forms.ModelForm):
 
     class Meta:
         model = Photo
-        fields = ["content", "image"]
+        fields = ["content", "image", 'is_private', 'album']
 
 
 class AlbumForm(forms.ModelForm):
     class Meta:
         model = Album
-        fields = ["title", "description"]
+        fields = ["title", "description", 'is_private']
 
 
 class AddPhotosToAlbumForm(forms.Form):

@@ -10,6 +10,7 @@ class Album(models.Model):
     description = models.TextField(blank=True)
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="albums", verbose_name="Автор")
     created_at = models.DateTimeField(auto_now_add=True)
+    is_private = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.pk} {self.author}"
@@ -50,4 +51,3 @@ class AlbumPhoto(models.Model):
 
     def __str__(self):
         return f"{self.album} {self.photo}"
-
