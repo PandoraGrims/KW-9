@@ -8,6 +8,8 @@ class SearchForm(forms.Form):
 
 
 class PhotoForm(forms.ModelForm):
+    album = forms.ModelChoiceField(queryset=Album.objects.all(), empty_label="(Nothing)")
+
     class Meta:
         model = Photo
         fields = ["content", "image"]
@@ -17,3 +19,7 @@ class AlbumForm(forms.ModelForm):
     class Meta:
         model = Album
         fields = ["title", "description"]
+
+
+class AddPhotosToAlbumForm(forms.Form):
+    selected_photos = forms.ModelMultipleChoiceField(queryset=Photo.objects.all(), widget=forms.CheckboxSelectMultiple)

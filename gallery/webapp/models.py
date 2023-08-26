@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.urls import reverse
@@ -28,6 +30,7 @@ class Photo(models.Model):
     album = models.ForeignKey(Album, on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     is_private = models.BooleanField(default=False)
+    token = models.UUIDField(default=uuid.uuid4, editable=False)
 
     def __str__(self):
         return f"{self.pk} {self.author}"
@@ -39,3 +42,12 @@ class Photo(models.Model):
         db_table = "photos"
         verbose_name = "Картинка"
         verbose_name_plural = "Картинки"
+
+
+class AlbumPhoto(models.Model):
+    album = models.ForeignKey(Album, on_delete=models.CASCADE)
+    photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.album} {self.photo}"
+

@@ -16,26 +16,33 @@
         <img class="profile-avatar img-fluid" src="{{ user_obj.avatar.url }}" alt="User Avatar">
         <div class="profile-username">{{ user_obj.username }}</div>
         <div class="profile-bio">{{ user_obj.description }}</div>
-{#        <div class="profile-stats">#}
-{#            <div class="profile-stat-item">#}
-{#                <span class="profile-stat-value">{{ user_obj.posts.count }}</span> posts#}
-{#            </div>#}
-{#            <div class="profile-stat-item">#}
-{#                <span class="profile-stat-value">{{ user_obj.followers.count }}</span> followers#}
-{#            </div>#}
-{#            <div class="profile-stat-item">#}
-{#                <span class="profile-stat-value">{{ user_obj.following.count }}</span> following#}
-{#            </div>#}
-{#        </div>#}
-{#        {% if request.user.is_authenticated and request.user != user_obj %}#}
-{#            <a href="{% url "webapp:follower" user_obj.pk %}">#}
-{#                {% if request.user in user_obj.followers.all %}#}
-{#                    Отписаться#}
-{#                {% else %}#}
-{#                    Подписаться#}
-{#                {% endif %}#}
-{#            </a>#}
-{#        {% endif %}#}
+        {% for album in user_obj.albums.all %}
+            <div class="col-md-12 mb-4 text-center" style="font-size: 32px">
+                <a href="{% url "webapp:album_view" album.pk %}">
+                    Смотреть альбом <span class="alb-title" style="color: darkorange">{{ album.title }}</span>
+                </a>
+            </div>
+        {% endfor %}
+        {#        <div class="profile-stats">#}
+        {#            <div class="profile-stat-item">#}
+        {#                <span class="profile-stat-value">{{ user_obj.posts.count }}</span> posts#}
+        {#            </div>#}
+        {#            <div class="profile-stat-item">#}
+        {#                <span class="profile-stat-value">{{ user_obj.followers.count }}</span> followers#}
+        {#            </div>#}
+        {#            <div class="profile-stat-item">#}
+        {#                <span class="profile-stat-value">{{ user_obj.following.count }}</span> following#}
+        {#            </div>#}
+        {#        </div>#}
+        {#        {% if request.user.is_authenticated and request.user != user_obj %}#}
+        {#            <a href="{% url "webapp:follower" user_obj.pk %}">#}
+        {#                {% if request.user in user_obj.followers.all %}#}
+        {#                    Отписаться#}
+        {#                {% else %}#}
+        {#                    Подписаться#}
+        {#                {% endif %}#}
+        {#            </a>#}
+        {#        {% endif %}#}
     </div>
     <div class="profile-posts mt-5">
         <div class="row">

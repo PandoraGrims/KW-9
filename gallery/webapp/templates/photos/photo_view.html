@@ -13,5 +13,14 @@
 
 {% block content %}
     {% include "partial/photo_view_partial.html" %}
-
+    {% if photo.author == request.user %}
+        {% if not photo.token %}
+            <form method="post" action="{% url 'generate_photo_link' photo.id %}">
+                {% csrf_token %}
+                <button type="submit">Сгенерировать ссылку</button>
+            </form>
+        {% else %}
+            <p>Ссылка фотографии: <a href="{% url 'webapp:view_photo_by_token' photo.token %}">{% url 'webapp:view_photo_by_token' photo.token %}</a></p>
+        {% endif %}
+    {% endif %}
 {% endblock %}

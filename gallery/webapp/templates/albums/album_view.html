@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block link %}
-    {% if request.user == post.author %}
+    {% if request.user == album.author %}
         <li class="nav-item">
             <a href="{% url "webapp:album_update" album.pk %}" class="nav-link">Редактирование</a>
         </li>
@@ -13,5 +13,13 @@
 
 {% block content %}
     {% include "partial/album_view_partial.html" %}
+    <div class="row">
+        {% for photo in photos %}
+            {% include "partial/photo_view_partial.html" %}
+            {% empty %}
+            <h2>Нет картинок</h2>
+                {% include "partial/add_photos_to_album.html" with button_text="Добавить" %}
+        {% endfor %}
+    </div>
 
 {% endblock %}
