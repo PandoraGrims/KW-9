@@ -8,7 +8,6 @@ class SearchForm(forms.Form):
 
 
 class PhotoForm(forms.ModelForm):
-    album = forms.ModelChoiceField(queryset=Album.objects.all(), empty_label="(Nothing)")
 
     class Meta:
         model = Photo
