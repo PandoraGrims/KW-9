@@ -62,23 +62,3 @@ def view_photo_by_token(request, token):
     photo = get_object_or_404(Photo, token=token)
     return render(request, 'photos/photo_view.html', {'photo': photo})
 
-# class LikePostView(LoginRequiredMixin, View):
-#     def get(self, request, *args, pk, **kwargs):
-#         post = get_object_or_404(Post, pk=pk)
-#         if request.user in post.like_users.all():
-#             post.like_users.remove(request.user)
-#         else:
-#             post.like_users.add(request.user)
-#         return HttpResponseRedirect(self.request.GET.get("next"))
-#
-#
-# class FollowersView(LoginRequiredMixin, View):
-#     def get(self, request, *args, pk, **kwargs):
-#         user = get_object_or_404(get_user_model(), pk=pk)
-#         if user == request.user:
-#             return HttpResponseBadRequest()
-#         if request.user in user.followers.all():
-#             user.followers.remove(request.user)
-#         else:
-#             user.followers.add(request.user)
-#         return redirect("accounts:profile", pk=pk)
