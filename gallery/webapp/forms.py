@@ -1,13 +1,19 @@
 from django import forms
 
-from webapp.models import Post
+from webapp.models import Photo, Album
 
 
 class SearchForm(forms.Form):
     search = forms.CharField(max_length=30, required=False, label="Найти")
 
 
-class PostForm(forms.ModelForm):
+class PhotoForm(forms.ModelForm):
     class Meta:
-        model = Post
+        model = Photo
         fields = ["content", "image"]
+
+
+class AlbumForm(forms.ModelForm):
+    class Meta:
+        model = Album
+        fields = ["title", "author"]

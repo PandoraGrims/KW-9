@@ -3,35 +3,39 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 
 
-class CreateUpdateAbstractModel(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
-    updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата изменения")
-
-    class Meta:
-        abstract = True
-
-
-class Post(CreateUpdateAbstractModel):
-    image = models.ImageField(upload_to="posts", verbose_name='Картинка')
-    content = models.TextField(max_length=2000, verbose_name="Контент")
-    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="posts", verbose_name="Автор")
-    like_users = models.ManyToManyField(get_user_model(), related_name='like_posts', verbose_name="Лайки")
+class Album(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="albums", verbose_name="Автор")
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.pk} {self.author}"
 
     def get_absolute_url(self):
-        return reverse("webapp:post_view", kwargs={"pk": self.pk})
+        return reverse("webapp:album_view", kwargs={"pk": self.pk})
 
     class Meta:
-        db_table = "posts"
-        verbose_name = "Пост"
-        verbose_name_plural = "Посты"
+        db_table = "albums"
+        verbose_name = "Альбом"
+        verbose_name_plural = "Альбомы"
 
 
-class Like(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="likes")
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="liked_posts")
+class Photo(models.Model):
+    image = models.ImageField(upload_to="photos", verbose_name='Картинка')
+    content = models.CharField(max_length=255)
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="photos", verbose_name="Автор")
+    album = models.ForeignKey(Album, on_delete=models.SET_NULL, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_private = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.user} {self.post}"
+        return f"{self.pk} {self.author}"
+
+    def get_absolute_url(self):
+        return reverse("webapp:photo_view", kwargs={"pk": self.pk})
+
+    class Meta:
+        db_table = "photos"
+        verbose_name = "Картинка"
+        verbose_name_plural = "Картинки"

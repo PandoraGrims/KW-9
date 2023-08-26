@@ -1,11 +1,10 @@
 from urllib.parse import urlencode
 
 from django.contrib.auth import authenticate, login, logout, get_user_model
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
-from django.core.paginator import Paginator
 from django.db.models import Q
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import CreateView, DetailView, UpdateView, ListView
 
@@ -36,7 +35,6 @@ class ProfileView(DetailView):
     model = get_user_model()
     template_name = "profile.html"
     context_object_name = "user_obj"
-    # paginate_related_by = 2
 
 
 class UserChangeView(PermissionRequiredMixin, UpdateView):

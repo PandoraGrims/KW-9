@@ -19,8 +19,6 @@ class User(AbstractUser):
     description = models.TextField(max_length=2000, verbose_name="Информация", blank=True, null=True)
     phone = models.CharField(max_length=30, verbose_name="Номер телефона", blank=True, null=True)
     gender = models.IntegerField(choices=CustomUserManager.GENDER_CHOICES)
-    followers = models.ManyToManyField('self', related_name='following', verbose_name="Подписки", symmetrical=False)
-
     objects = CustomUserManager()
 
     def __str__(self):

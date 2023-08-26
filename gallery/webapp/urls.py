@@ -1,16 +1,13 @@
 from django.urls import path
 
-from webapp.views.posts import PostsListView, PostCreateView, PostDetailView, PostUpdateView, PostDeleteView, \
-    LikePostView, FollowersView
+from webapp.views.photos import PhotoListView, PhotoCreateView, PhotoDetailView, PhotoUpdateView, PhotoDeleteView
 
 app_name = "webapp"
 
 urlpatterns = [
-    path('', PostsListView.as_view(), name="posts_list"),
-    path('posts/add/', PostCreateView.as_view(), name="post_add"),
-    path('post/<int:pk>/', PostDetailView.as_view(), name="post_view"),
-    path('post/<int:pk>/update/', PostUpdateView.as_view(), name="post_update"),
-    path('post/<int:pk>/delete/', PostDeleteView.as_view(), name="post_delete"),
-    path('post/<int:pk>/like/', LikePostView.as_view(), name="post_like"),
-    path('user/<int:pk>/follower/', FollowersView.as_view(), name="follower")
+    path('', PhotoListView.as_view(), name="photo_list"),
+    path('photos/add/', PhotoCreateView.as_view(), name="photo_add"),
+    path('post/<int:pk>/', PhotoDetailView.as_view(), name="photo_view"),
+    path('post/<int:pk>/update/', PhotoUpdateView.as_view(), name="photo_update"),
+    path('post/<int:pk>/delete/', PhotoDeleteView.as_view(), name="photo_delete"),
 ]
