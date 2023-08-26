@@ -18,3 +18,7 @@ class AlbumSerializer(serializers.ModelSerializer):
     class Meta:
         model = Album
         fields = '__all__'
+
+
+class FavoriteSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
